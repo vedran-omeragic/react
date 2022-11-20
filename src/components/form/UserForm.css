@@ -1,0 +1,26 @@
+.responseWrapper {
+	width: 100%;
+	padding: 25px 10px;
+	border-radius: 10px;
+}
+
+.formTitle {
+	width: 100%;
+	padding: 10px 25px;
+}
+
+form {
+	width: 100%;
+	padding: 10px;
+}
+
+.buttonWrapper {
+	width: 100%;
+	padding: 25px 20px;
+	display: flex;
+	flex-direction: row;
+}
+
+.buttonWrapper button {
+	margin-right: 25px;
+}
