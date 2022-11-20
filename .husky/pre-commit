@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# Prevent from committing directly to main branch
+if [ "$branch" = "main" ]; then
+  echo "You can't commit directly to main branch"
+  exit 1
+fi
+
+# PRE COMMIT HOOKS
+# `staged` flag will only parse staged files
+# `no-restage` prevents git from automatically commiting changed files
+# `bail` ensures that if eny errors happen any commit/push changes happen 
+npx pretty-quick --staged --no-restage --bail
+npm run lint-staged
