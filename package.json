@@ -8,7 +8,9 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"lint": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix",
-		"prettier:write": "npx prettier --write **/\"*.{js,jsx,ts,tsx,json}\" && npx prettier --write \"*.{js,jsx,ts,tsx,json}\""
+		"lint-staged": "npm run lint",
+		"prettier:write": "npx prettier --write **/\"*.{js,jsx,ts,tsx,json}\" && npx prettier --write \"*.{js,jsx,ts,tsx,json}\"",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.16.5",
@@ -48,6 +50,13 @@
 		"eslint": "^8.28.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.31.11",
+		"husky": "^8.0.2",
+		"lint-staged": "^13.0.3",
 		"prettier": "^2.7.1"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "sh hooks/pre-commit"
+		}
 	}
 }
