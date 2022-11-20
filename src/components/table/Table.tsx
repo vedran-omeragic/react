@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchUsers } from '../../features/user/thunk';
+import { fetchUsers, deleteUser } from '../../features/user/thunk';
 import {
 	pageIncrease,
 	pageDecrease,
@@ -24,6 +24,12 @@ function Table() {
 	const [paginatedUserList, setPaginatedUserList] = useState([]);
 	const [searchInputValue, setSearchInputValue] = useState('');
 
+	const [showModal, setShowModal] = useState(false);
+	const [modalMessage, setModalMessage] = useState('');
+	const [modalUserId, setModalUserId] = useState(-1);
+
+	const [apiResponse, setApiResponse] = useState({});
+
 	useEffect(() => {
 		dispatch(fetchUsers({ page, sortColumn, sortDirection, searchValue }))
 			.then((res) => {
@@ -32,7 +38,7 @@ function Table() {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, [dispatch, page, sortColumn, sortDirection, searchValue]);
+	}, [dispatch, page, sortColumn, sortDirection, searchValue, apiResponse]);
 
 	function changeDirection() {
 		if (sortDirection === 'asc') {
@@ -79,6 +85,44 @@ function Table() {
 		}
 	};
 
+	const openModal = (id: number, username: string) => {
+		setModalMessage(`Aare you sure you wish to delete user ${username}?`);
+		setModalUserId(id);
+		setShowModal(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
+	const renderModal = () => {
+		return (
+			<div className="modal">
+				<div className="modalContent">
+					<span
+						className="close"
+						onClick={() => closeModal()}
+					>
+						&times;
+					</span>
+					<p>{modalMessage}</p>
+					<Button onClick={() => handleDelete(modalUserId)}>Confirm</Button>
+				</div>
+			</div>
+		);
+	};
+
+	const handleDelete = (id: number) => {
+		dispatch(deleteUser(id))
+			.then((res) => {
+				setApiResponse(res.payload);
+				closeModal();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+
 	return (
 		<div className="tableWrapper">
 			<div className="searchBarContainer">
@@ -92,6 +136,7 @@ function Table() {
 				<Button onClick={() => handleSearchSubmit()}>Search</Button>
 				<Button onClick={() => clearSearchInput()}>Clear</Button>
 			</div>
+			<div></div>
 			<div className="tableContainer">
 				<table className="userTable">
 					<thead>
@@ -107,6 +152,7 @@ function Table() {
 							<th onClick={() => handleOrderColumn('updated_at')}>Updated At {getChevron('updated_at')}</th>
 							<th>Permissions</th>
 							<th>Edit</th>
+							<th>Delete</th>
 							<th>Manage Perissions</th>
 						</tr>
 					</thead>
@@ -115,6 +161,7 @@ function Table() {
 							return (
 								<TableRow
 									key={user.id}
+									deleteFn={() => openModal(user.id, user.username)}
 									{...user}
 								/>
 							);
@@ -130,7 +177,7 @@ function Table() {
 									Previous
 								</Button>
 							</td>
-							<td colSpan={10}> Page: {page}</td>
+							<td colSpan={11}> Page: {page}</td>
 							<td>
 								<Button
 									onClick={() => handlePageIncrease()}
@@ -143,6 +190,7 @@ function Table() {
 					</tfoot>
 				</table>
 			</div>
+			{showModal && renderModal()}
 		</div>
 	);
 }

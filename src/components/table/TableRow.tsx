@@ -1,8 +1,13 @@
 import React from 'react';
 import { User } from '../../features/user/models';
+import Button from '../Button';
 import './style.css';
 
-function TableRow(props: User) {
+interface UserRow extends User {
+	deleteFn: any;
+}
+
+function TableRow(props: UserRow) {
 	const {
 		id,
 		username,
@@ -14,6 +19,7 @@ function TableRow(props: User) {
 		created_at,
 		updated_at,
 		user_permissions,
+		deleteFn,
 	} = props;
 
 	return (
@@ -41,6 +47,9 @@ function TableRow(props: User) {
 				})}
 			</td>
 			<td>⚙️</td>
+			<td>
+				<Button onClick={deleteFn}>Delete</Button>
+			</td>
 			<td>#</td>
 		</tr>
 	);

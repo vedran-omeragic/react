@@ -16,3 +16,10 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async (params: Us
 	const data = await response.json();
 	return data;
 });
+
+export const deleteUser = createAsyncThunk('users/deleteUser', async (id: number) => {
+	const formattedUrl = `${BASE_URI}${id}`;
+	const response = await fetch(formattedUrl, { method: 'DELETE' });
+	const data = await response.json();
+	return data;
+});
