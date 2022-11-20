@@ -21,6 +21,3 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Removing package lock until project is complete
-package-lock.json
