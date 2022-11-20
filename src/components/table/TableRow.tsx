@@ -50,7 +50,9 @@ function TableRow(props: UserRow) {
 				})}
 			</td>
 			<td>
-				<Link to={`/form/${id}`}>Edit</Link>
+				<Link to={`/form/${id}`}>
+					<button>Edit</button>
+				</Link>
 				<Routes>
 					<Route
 						path="/form/:id"

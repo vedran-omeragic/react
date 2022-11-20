@@ -24,3 +24,7 @@ form {
 .buttonWrapper button {
 	margin-right: 25px;
 }
+
+label {
+	font-size: 18px;
+}
