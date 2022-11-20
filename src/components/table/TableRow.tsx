@@ -1,5 +1,8 @@
 import React from 'react';
+import { Route, Link, Routes } from 'react-router-dom';
+
 import { User } from '../../features/user/models';
+import UserFormPage from '../../pages/UserFormPage';
 import Button from '../Button';
 import './style.css';
 
@@ -46,7 +49,17 @@ function TableRow(props: UserRow) {
 					);
 				})}
 			</td>
-			<td>⚙️</td>
+			<td>
+				<Link to={`/form/${id}`}>
+					<button>Edit</button>
+				</Link>
+				<Routes>
+					<Route
+						path="/form/:id"
+						element={<UserFormPage />}
+					/>
+				</Routes>
+			</td>
 			<td>
 				<Button onClick={deleteFn}>Delete</Button>
 			</td>
