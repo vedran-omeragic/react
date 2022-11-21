@@ -1,0 +1,73 @@
+.permissionFormContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+}
+
+.permissionList {
+	padding: 20px 10px;
+	border: 1px solid #5d7dbe;
+	border-radius: 10px;
+}
+
+.userPermissionsFormHeader {
+	background-color: #5d7dbe;
+	font-size: 16px;
+	padding: 15px 20px;
+	color: #eaeaea;
+	text-align: left;
+	cursor: pointer;
+}
+
+.permissionItem {
+	display: flex;
+	flex-direction: row;
+	background-color: #6b91dd96;
+	margin: 25px;
+	padding: 20px;
+	color: #eaeaea;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.permissionItem:hover {
+	background-color: #5d7dbe;
+}
+
+.hasPermission {
+	background-color: #5d7dbe;
+}
+
+.permissionItem > *:not(:last-child) {
+	margin-right: 10px;
+}
+
+.checkbox {
+	background-color: white;
+	width: 20px;
+	height: 20px;
+	border-radius: 3px;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.checkmark::before {
+	content: '\2713';
+	color: #5d7dbe;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.responseContainer {
+	padding: 10px;
+	border-radius: 10px;
+}

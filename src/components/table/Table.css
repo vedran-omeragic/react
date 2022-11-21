@@ -1,11 +1,20 @@
-.tableWrapper {
+.headerWrapper {
 	width: 100%;
-	margin: 20px 0px;
+	color: #eaeaea;
+	background-color: #5d7dbe;
+	padding: 10px 0px;
+}
+
+.tableWrapper {
+	padding: 20px 20px;
+	border: 1px solid #5d7dbe;
+	border-radius: 10px;
 }
 
 .searchBarContainer {
 	width: 100%;
-	padding: 10px 0px;
+	padding-top: 20px;
+	padding-bottom: 10px;
 	display: flex;
 	flex-direction: row;
 }
@@ -14,18 +23,10 @@
 	margin-right: 20px;
 }
 
-input {
-	width: 350px;
-	height: 36px;
-}
-
 .tableContainer {
 	padding: 10px 0px;
 	margin: 0;
-}
-
-thead {
-	background-color: #5d7dbe;
+	overflow-x: auto;
 }
 
 .tableHeader th {
@@ -38,37 +39,7 @@ thead {
 }
 
 .userTable {
-	width: 100%;
 	border-spacing: 0;
-}
-
-tbody tr:hover {
-	background-color: #eaeaea;
-}
-
-td {
-	padding: 10px 20px;
-	font-size: 14px;
-	margin: 0;
-}
-
-th {
-	margin: 0px;
-}
-
-tfoot {
-	background-color: #5d7dbe;
-}
-
-tfoot tr {
-	text-align: center;
-	color: #eaeaea;
-}
-
-button {
-	height: 36px;
-	padding: 5px;
-	min-width: 100px;
 }
 
 .permission {
@@ -76,7 +47,7 @@ button {
 	width: 100%;
 	background-color: #edb657;
 	text-align: center;
-	padding: 5px;
+	margin: 5px;
 	border-radius: 5px;
 }
 

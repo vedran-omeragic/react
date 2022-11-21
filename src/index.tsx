@@ -1,18 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 import UserManagementPage from './pages/UserManagementPage';
 import UserFormPage from './pages/UserFormPage';
-import { store } from './redux/store';
+import UserPermissionsPage from './pages/UserPermissionsPage';
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<Router>
-				<div>
+				<div className="navigationWrapper">
 					<nav>
 						<Link to="/">User Management</Link>
 						<Link to="/form">Create user</Link>
@@ -30,6 +31,10 @@ root.render(
 					<Route
 						path="/form/:id"
 						element={<UserFormPage />}
+					/>
+					<Route
+						path="/permissions/:id"
+						element={<UserPermissionsPage />}
 					/>
 				</Routes>
 			</Router>

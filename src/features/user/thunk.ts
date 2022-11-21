@@ -1,7 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { UserPermission } from '../userPermissons/models';
+import { USER_API_URI } from '../utils';
 import { UserFormData, UserFormUpdateData } from './models';
 
-export const BASE_URI = 'http://localhost:5000/users/';
+const headers = new Headers();
+headers.append('Content-Type', 'application/json');
 
 export interface UserListQuery {
 	page: number;
@@ -12,14 +15,14 @@ export interface UserListQuery {
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async (params: UserListQuery) => {
 	const { page, sortColumn, sortDirection, searchValue } = params;
-	const formattedUrl = `${BASE_URI}?page=${page}&order_by=${sortColumn}&sort=${sortDirection}&search=${searchValue}`;
+	const formattedUrl = `${USER_API_URI}?page=${page}&order_by=${sortColumn}&sort=${sortDirection}&search=${searchValue}`;
 	const response = await fetch(formattedUrl, { method: 'GET' });
 	const data = await response.json();
 	return data;
 });
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (id: number) => {
-	const formattedUrl = `${BASE_URI}${id}`;
+	const formattedUrl = `${USER_API_URI}${id}`;
 	const response = await fetch(formattedUrl, { method: 'DELETE' });
 	const data = await response.json();
 	return data;
@@ -29,7 +32,7 @@ export const createUser = createAsyncThunk('users/createUser', async (params: Us
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 
-	const response = await fetch(BASE_URI, {
+	const response = await fetch(USER_API_URI, {
 		method: 'POST',
 		headers: headers,
 		body: JSON.stringify(params),
@@ -39,9 +42,7 @@ export const createUser = createAsyncThunk('users/createUser', async (params: Us
 });
 
 export const updateUser = createAsyncThunk('users/updateUser', async (params: UserFormUpdateData) => {
-	const headers = new Headers();
-	headers.append('Content-Type', 'application/json');
-	const formattedUrl = `${BASE_URI}${params.id}`;
+	const formattedUrl = `${USER_API_URI}${params.id}`;
 	const response = await fetch(formattedUrl, {
 		method: 'PATCH',
 		headers: headers,
@@ -52,8 +53,43 @@ export const updateUser = createAsyncThunk('users/updateUser', async (params: Us
 });
 
 export const fetchUser = createAsyncThunk('users/fetchUser', async (id: number) => {
-	const formattedUrl = `${BASE_URI}${id}`;
+	const formattedUrl = `${USER_API_URI}${id}`;
 	const response = await fetch(formattedUrl, { method: 'GET' });
 	const data = await response.json();
 	return data;
 });
+
+export const fetchUserPermissions = createAsyncThunk('users/fetchUserPermissions', async (id: number) => {
+	const formattedUrl = `${USER_API_URI}${id}/perms`;
+	const response = await fetch(formattedUrl, { method: 'GET' });
+	const data = await response.json();
+	return data;
+});
+
+export const createUserPermission = createAsyncThunk(
+	'users/createUserPermission',
+	async (userPermission: UserPermission) => {
+		const formattedUrl = `${USER_API_URI}${userPermission.user_id}/perms`;
+		const response = await fetch(formattedUrl, {
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify({ code: userPermission.permission_code }),
+		});
+		const data = await response.json();
+		return data;
+	}
+);
+
+export const deleteUserPermission = createAsyncThunk(
+	'users/deleteUserPermission',
+	async (userPermission: UserPermission) => {
+		const formattedUrl = `${USER_API_URI}${userPermission.user_id}/perms`;
+		const response = await fetch(formattedUrl, {
+			method: 'DELETE',
+			headers: headers,
+			body: JSON.stringify({ code: userPermission.permission_code }),
+		});
+		const data = await response.json();
+		return data;
+	}
+);
