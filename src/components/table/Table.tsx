@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchUsers, deleteUser } from '../../features/user/thunk';
 import {
@@ -12,7 +11,7 @@ import {
 import { User } from '../../features/user/models';
 import TableRow from './TableRow';
 import Button from '../Button';
-import './style.css';
+import './Table.css';
 
 function Table() {
 	const page = useAppSelector((state) => state.userList.page);
@@ -125,6 +124,9 @@ function Table() {
 
 	return (
 		<div className="tableWrapper">
+			<div className="headerWrapper">
+				<h1>MANAGE USERS</h1>
+			</div>
 			<div className="searchBarContainer">
 				<input
 					type="text"
@@ -150,10 +152,10 @@ function Table() {
 							<th onClick={() => handleOrderColumn('status')}>Status {getChevron('status')}</th>
 							<th onClick={() => handleOrderColumn('created_at')}>Created At {getChevron('created_at')}</th>
 							<th onClick={() => handleOrderColumn('updated_at')}>Updated At {getChevron('updated_at')}</th>
-							<th>Permissions</th>
+							<th>Permissions List</th>
 							<th>Edit</th>
 							<th>Delete</th>
-							<th>Manage Perissions</th>
+							<th>Permissions</th>
 						</tr>
 					</thead>
 					<tbody>

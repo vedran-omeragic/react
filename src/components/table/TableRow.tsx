@@ -1,10 +1,9 @@
 import React from 'react';
-import { Route, Link, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { User } from '../../features/user/models';
-import UserFormPage from '../../pages/UserFormPage';
 import Button from '../Button';
-import './style.css';
+import './Table.css';
 
 interface UserRow extends User {
 	deleteFn: any;
@@ -53,17 +52,15 @@ function TableRow(props: UserRow) {
 				<Link to={`/form/${id}`}>
 					<button>Edit</button>
 				</Link>
-				<Routes>
-					<Route
-						path="/form/:id"
-						element={<UserFormPage />}
-					/>
-				</Routes>
 			</td>
 			<td>
 				<Button onClick={deleteFn}>Delete</Button>
 			</td>
-			<td>#</td>
+			<td>
+				<Link to={`/permissions/${id}`}>
+					<button>Manage</button>
+				</Link>
+			</td>
 		</tr>
 	);
 }

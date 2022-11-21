@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
-
 import { useAppDispatch } from '../../redux/hooks';
-
 import { createUser, updateUser, fetchUser } from '../../features/user/thunk';
+import { ApiResponse } from '../../features/api/models';
 import Button from '../Button';
 import './UserForm.css';
-import { useParams, useNavigate } from 'react-router-dom';
-
-interface ValidationError {
-	value: string;
-	msg: string;
-	param: string;
-	location: string;
-}
-
-interface ApiResponse {
-	message: string;
-	status: number;
-	validationErrors?: ValidationError[];
-}
 
 const UserForm = () => {
 	const dispatch = useAppDispatch();
@@ -151,109 +137,129 @@ const UserForm = () => {
 
 	return (
 		<div className="formWrapper">
-			{apiResponse && (
-				<div
-					className="responseWrapper"
-					style={apiResponse.status === 200 ? { backgroundColor: '#b9fabf' } : { backgroundColor: '#fc9f9f' }}
-				>
-					<div>Status: {apiResponse.status}</div>
-					<div>Message: {apiResponse.message}</div>
-					{apiResponse.validationErrors && (
-						<div>
-							{apiResponse.validationErrors.map((item) => {
-								return (
-									<ul key={item.msg}>
-										<li>Input: {item.param}</li>
-										<li>Message: {item.msg}</li>
-									</ul>
-								);
-							})}
+			<div className="formContainer">
+				<div className="responseWrapper">
+					{apiResponse && (
+						<div
+							className="responseContainer"
+							style={apiResponse.status === 200 ? { backgroundColor: '#b9fabf' } : { backgroundColor: '#fc9f9f' }}
+						>
+							<div>Status: {apiResponse.status}</div>
+							<div>Message: {apiResponse.message}</div>
+							{apiResponse.validationErrors && (
+								<div>
+									{apiResponse.validationErrors.map((item) => {
+										return (
+											<ul key={item.msg}>
+												<li>Input: {item.param}</li>
+												<li>Message: {item.msg}</li>
+											</ul>
+										);
+									})}
+								</div>
+							)}
 						</div>
 					)}
 				</div>
-			)}
-			<div className="formTitle">{userId ? <h1>UPDATING USER `{username}`</h1> : <h1>CREATING NEW USER</h1>}</div>
-			<form>
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<label>Username</label>
-							</td>
-							<td>
-								<input
-									type="text"
-									value={username}
-									onChange={(event) => handleUsername(event)}
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label>Email</label>
-							</td>
-							<td>
-								<input
-									type="text"
-									value={email}
-									onChange={(event) => handleEmail(event)}
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label>Password</label>
-							</td>
-							<td>
-								<input
-									type="password"
-									value={password}
-									onChange={(event) => handlePassword(event)}
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label>First Name</label>
-							</td>
-							<td>
-								<input
-									type="text"
-									value={firstName}
-									onChange={(event) => handleFirstName(event)}
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label>Last Name</label>
-							</td>
-							<td>
-								<input
-									type="text"
-									value={lastName}
-									onChange={(event) => handleLastName(event)}
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label>Status</label>
-							</td>
-							<td>
-								<input
-									type="text"
-									value={status}
-									onChange={(event) => handleStatus(event)}
-								/>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-			<div className="buttonWrapper">
-				<Button onClick={() => handleSubmit()}>{userId ? 'Update User' : 'Create New'}</Button>
-				<Button onClick={() => resetForm()}>{userId ? 'New User' : 'Reset'}</Button>
+				<form className="userForm">
+					<table className="userFormTable">
+						<thead>
+							<tr className="tableHeader">
+								<th colSpan={2}>
+									{userId ? (
+										<h1 className="userFormTitle">UPDATING USER `{username}`</h1>
+									) : (
+										<h1 className="userFormTitle">CREATING NEW USER</h1>
+									)}
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<label>Username</label>
+								</td>
+								<td>
+									<input
+										type="text"
+										value={username}
+										onChange={(event) => handleUsername(event)}
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label>Email</label>
+								</td>
+								<td>
+									<input
+										type="text"
+										value={email}
+										onChange={(event) => handleEmail(event)}
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label>Password</label>
+								</td>
+								<td>
+									<input
+										type="password"
+										value={password}
+										onChange={(event) => handlePassword(event)}
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label>First Name</label>
+								</td>
+								<td>
+									<input
+										type="text"
+										value={firstName}
+										onChange={(event) => handleFirstName(event)}
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label>Last Name</label>
+								</td>
+								<td>
+									<input
+										type="text"
+										value={lastName}
+										onChange={(event) => handleLastName(event)}
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label>Status</label>
+								</td>
+								<td>
+									<input
+										type="text"
+										value={status}
+										onChange={(event) => handleStatus(event)}
+									/>
+								</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr className="userFormFooter">
+								<td>
+									<Button onClick={() => handleSubmit()}>{userId ? 'Update User' : 'Create New'}</Button>
+								</td>
+								<td>
+									<Button onClick={() => resetForm()}>{userId ? 'New User' : 'Reset'}</Button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</form>
 			</div>
 		</div>
 	);

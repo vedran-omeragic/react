@@ -1,30 +1,48 @@
-.responseWrapper {
+.formTitle {
 	width: 100%;
-	padding: 25px 10px;
+	padding: 10px 0px;
+}
+
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.userForm {
+	padding: 20px 10px;
+	border: 1px solid #5d7dbe;
 	border-radius: 10px;
 }
 
-.formTitle {
-	width: 100%;
-	padding: 10px 25px;
+.userFormTable {
+	border-spacing: 0;
 }
 
-form {
+.userFormHeader th {
 	width: 100%;
+	text-align: center;
+}
+
+.userFormTitle {
+	color: #eaeaea;
+}
+
+.userFormFooter td:first-child {
+	text-align: left;
+}
+
+.userFormFooter td:last-child {
+	text-align: right;
+}
+
+.responseWrapper {
 	padding: 10px;
+	border-radius: 10px;
 }
 
-.buttonWrapper {
-	width: 100%;
-	padding: 25px 20px;
-	display: flex;
-	flex-direction: row;
-}
-
-.buttonWrapper button {
-	margin-right: 25px;
-}
-
-label {
-	font-size: 18px;
+.responseContainer {
+	padding: 10px;
+	border-radius: 10px;
 }

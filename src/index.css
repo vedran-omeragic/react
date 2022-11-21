@@ -1,10 +1,79 @@
+.page {
+	width: 100%;
+	margin: 0;
+}
+
+.navigationWrapper {
+	padding: 10px;
+	border: 1px solid #5d7dbe;
+	border-radius: 10px;
+	margin-bottom: 15px;
+}
+
 nav {
 	width: 100%;
 }
 
 nav a {
 	display: inline-block;
-	padding: 25px;
-	font-size: 25px;
+	padding: 20px;
+	font-size: 20px;
 	font-weight: bold;
+	color: #5d7dbe;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+nav a:hover {
+	color: #edb657;
+}
+
+h1 {
+	width: 100%;
+	text-align: center;
+}
+
+input {
+	width: 350px;
+	height: 36px;
+}
+
+thead {
+	background-color: #5d7dbe;
+}
+
+tbody tr:hover {
+	background-color: #eaeaea;
+}
+
+th {
+	margin: 0px;
+	width: auto;
+	white-space: nowrap;
+}
+
+td {
+	padding: 10px 5px;
+	font-size: 14px;
+	margin: auto;
+	width: auto;
+}
+
+tfoot {
+	background-color: #5d7dbe;
+}
+
+tfoot tr {
+	text-align: center;
+	color: #eaeaea;
+}
+
+button {
+	height: 36px;
+	padding: 5px;
+	min-width: 100px;
+}
+
+label {
+	font-size: 18px;
 }
